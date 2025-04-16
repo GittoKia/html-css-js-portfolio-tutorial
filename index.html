@@ -6,6 +6,19 @@
     <title>My Portfolio</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="mediaqueries.css" />
+    <script>
+      function openJavaWindow() {
+        // Opens the window for the first Java file.
+        window.open("http://localhost:3001/run-java", "_blank");
+      }
+      function openGoodbyeWindow() {
+        // Opens the window for the Goodbye Java file.
+        window.open("http://localhost:3001/run-goodbye", "_blank");
+      }
+      function openPythonWindow() {
+        window.open("http://localhost:3001/run-python", "_blank");
+      }
+    </script>
   </head>
   <body>
     <nav id="desktop-nav">
@@ -37,16 +50,20 @@
     </nav>
     <section id="profile">
       <div class="section__pic-container">
-        <img src="./assets/profile-pic.png" alt="Kia Abbasi profile picture" />
+        <img
+          src="./assets/smile.jpg"
+          alt="Kia Abbasi profile picture"
+          class="top"
+        />
       </div>
       <div class="section__text">
         <p class="section__text__p1">Hello, I'm</p>
         <h1 class="title">Kia Abbasi</h1>
-        <p class="section__text__p2">Typescript Developer</p>
+        <p class="section__text__p2">React Developer</p>
         <div class="btn-container">
           <button
             class="btn btn-color-2"
-            onclick="window.open('./assets/resume-example.pdf')"
+            onclick="window.open('./assets/Letter.pdf')"
           >
             Download CV
           </button>
@@ -66,7 +83,7 @@
             src="./assets/github.png"
             alt="My Github profile"
             class="icon"
-            onclick="location.href=('https://github.com/')"
+            onclick="location.href=('https://github.com/GittoKia')"
           />
         </div>
       </div>
@@ -77,7 +94,7 @@
       <div class="section-container">
         <div class="section__pic-container">
           <img
-            src="./assets/about-pic.png"
+            src="./assets/chair-pos.jpg"
             alt="Profile Picture"
             class="about-pic"
           />
@@ -93,7 +110,7 @@
               <h3>Experience</h3>
               <p>
                 2+ Years <br />
-                Frontend Development
+                Coding Experience
               </p>
             </div>
             <div class="details-container">
@@ -103,17 +120,17 @@
                 class="icon"
               />
               <h3>Education</h3>
-              <p>B.SC. Bachelors Degree <br />M.SC. Master's Degree</p>
+              <p>Newmarket High School <br />Art of Problem Solving</p>
             </div>
           </div>
           <div class="text-container">
             <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit
-              ad pariatur esse officiis ipsum ducimus mollitia quasi? Sapiente
-              ipsa quam consectetur explicabo consequuntur eum dicta quis iure
-              quasi vitae totam cumque minima corrupti doloremque dolore, odio
-              incidunt vel necessitatibus atque itaque natus aliquam dolor
-              eaque? Velit ullam minima dicta voluptates!
+              I have worked in programming for over three years now, developing
+              fluency in Python and Java. I have created many projects from
+              simple games to contest problem solutions. Currently, I am
+              studying React with Typescript and Sass at No Fuss Tutors to
+              create the portfolio website. I have had to combine these skills
+              throughout my high school years.
             </p>
           </div>
         </div>
@@ -131,7 +148,7 @@
       <div class="experience-details-container">
         <div class="about-containers">
           <div class="details-container">
-            <h2 class="experience-sub-title">Frontend Development</h2>
+            <h2 class="experience-sub-title">Critical skills</h2>
             <div class="article-container">
               <article>
                 <img
@@ -140,7 +157,74 @@
                   class="icon"
                 />
                 <div>
-                  <h3>HTML</h3>
+                  <h3>Responsibility</h3>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>Time-management</h3>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>
+                    Flexibility&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </h3>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>Independence</h3>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>Communication</h3>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>Mathematics</h3>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="details-container">
+            <h2 class="experience-sub-title">Languages</h2>
+            <div class="article-container">
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>Java</h3>
                   <p>Experienced</p>
                 </div>
               </article>
@@ -151,19 +235,8 @@
                   class="icon"
                 />
                 <div>
-                  <h3>CSS</h3>
+                  <h3>Python&nbsp;&nbsp;&nbsp;&nbsp;</h3>
                   <p>Experienced</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>SASS</h3>
-                  <p>Beginner</p>
                 </div>
               </article>
               <article>
@@ -174,55 +247,6 @@
                 />
                 <div>
                   <h3>Javascript</h3>
-                  <p>Basic</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Typecript</h3>
-                  <p>Basic</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Material UI</h3>
-                  <p>Intermediate</p>
-                </div>
-              </article>
-            </div>
-          </div>
-          <div class="details-container">
-            <h2 class="experience-sub-title">Backend Development</h2>
-            <div class="article-container">
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>PostGreSQL</h3>
-                  <p>Basi</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Node JS</h3>
                   <p>Intermediate</p>
                 </div>
               </article>
@@ -233,7 +257,7 @@
                   class="icon"
                 />
                 <div>
-                  <h3>Express JS</h3>
+                  <h3>SASS</h3>
                   <p>Intermediate</p>
                 </div>
               </article>
@@ -244,8 +268,21 @@
                   class="icon"
                 />
                 <div>
-                  <h3>Git</h3>
-                  <p>Intermediate</p>
+                  <h3>Typescript</h3>
+                  <p>Beginner</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>
+                    CSS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </h3>
+                  <p>Beginner</p>
                 </div>
               </article>
             </div>
@@ -267,7 +304,7 @@
           <div class="details-container color-container">
             <div class="article-container">
               <img
-                src="./assets/project-1.png"
+                src="./assets/monopoly-image.png"
                 alt="Project 1"
                 class="project-img"
               />
@@ -276,7 +313,7 @@
             <div class="btn-container">
               <button
                 class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com'"
+                onclick="location.href='https://github.com/GittoKia/Monopoly'"
               >
                 Github
               </button>
@@ -291,7 +328,7 @@
           <div class="details-container color-container">
             <div class="article-container">
               <img
-                src="./assets/project-2.png"
+                src="./assets/mine-sweeper.png"
                 alt="Project 2"
                 class="project-img"
               />
@@ -300,13 +337,13 @@
             <div class="btn-container">
               <button
                 class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com'"
+                onclick="location.href='https://github.com/GittoKia/minesweeper'"
               >
                 Github
               </button>
               <button
                 class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com'"
+                onclick="openPythonWindow()"
               >
                 Live Demo
               </button>
@@ -315,7 +352,7 @@
           <div class="details-container color-container">
             <div class="article-container">
               <img
-                src="./assets/project-3.png"
+                src="./assets/checkers.png"
                 alt="Project 3"
                 class="project-img"
               />
@@ -324,13 +361,37 @@
             <div class="btn-container">
               <button
                 class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com'"
+                onclick="location.href='https://github.com/GittoKia/checkers'"
               >
                 Github
               </button>
               <button
                 class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com'"
+                onclick="openJavaWindow()"
+              >
+                Live Demo
+              </button>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./assets/netbeans.png"
+                alt="Project 4"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Project Four</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='https://github.com/GittoKia/arrayAssignment'"
+              >
+                Github
+              </button>
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="openGoodbyeWindow()"
               >
                 Live Demo
               </button>
@@ -349,22 +410,49 @@
       <p class="section__text__p1">Get in Touch</p>
       <h1 class="title">Contact Me</h1>
       <div class="contact-info-upper-container">
-        <div class="contact-info-container">
-          <img
-            src="./assets/email.png"
-            alt="Email icon"
-            class="icon contact-icon email-icon"
-          />
-          <p><a href="mailto:examplemail@gmail.com">Example@gmail.com</a></p>
-        </div>
-        <div class="contact-info-container">
-          <img
-            src="./assets/linkedin.png"
-            alt="LinkedIn icon"
-            class="icon contact-icon"
-          />
-          <p><a href="https://www.linkedin.com">LinkedIn</a></p>
-        </div>
+        <form
+          action="https://formspree.io/f/xkgjelyp"
+          method="POST"
+          class="message-container"
+        >
+          <div class="input-component">
+            <label for="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Your Name"
+              size="50"
+              required
+            />
+          </div>
+
+          <div class="input-component">
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Your Email"
+              required
+            />
+          </div>
+
+          <div class="input-component">
+            <label for="message">Message:</label>
+            <textarea
+              id="message"
+              name="message"
+              placeholder="Your Message"
+              rows="5"
+              required
+            ></textarea>
+          </div>
+          <div class="btn-container">
+            <button type="submit" class="btn btn-color-1">Send Message</button>
+          </div>
+
+        </form>
       </div>
     </section>
     <footer>
