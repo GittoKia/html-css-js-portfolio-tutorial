@@ -1,31 +1,27 @@
 FROM node:18-slim
 
-# 1. Install JDK (for javac) and cleanup
+# 1) Install JDK (for javac) and fonts for Swing headless mode
 RUN apt-get update \
  && apt-get install -y --no-install-recommends default-jdk fontconfig fonts-dejavu \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# 2. Copy everything we need
-COPY build.xml ./
-COPY nbproject/ ./nbproject/
-COPY src/ ./src/
-COPY AbbasiKiaArraysAssignmentUI.java ./
+# 2) Copy in *everything* from your project
+#    (this includes src/, your root-level .java, server.js, package files, public/, etc.)
+COPY . .
 
-# 3. Compile every .java (root + src) into build/classes/
-RUN mkdir -p build/classes \
- && find src -type f -name "*.java" > sources.txt \
+# 3) Compile all Java sources into JavaClasses/
+RUN mkdir -p JavaClasses \
+ && find src -name "*.java" > sources.txt \
  && echo "AbbasiKiaArraysAssignmentUI.java" >> sources.txt \
- && javac -d build/classes @sources.txt
+ && javac -d JavaClasses @sources.txt
 
-# 4. Finish Node setup
-COPY package*.json ./
+# 4) Install Node dependencies and copy the rest
 RUN npm install
-COPY server.js ./
-COPY public/ ./public
+# (server.js and public/ were already copied by the `COPY . .` above)
 
-# 5. Headless mode & start
+# 5) Launch in headless mode
 ENV JAVA_TOOL_OPTIONS="-Djava.awt.headless=true"
 EXPOSE 10000
 CMD ["node", "server.js"]
