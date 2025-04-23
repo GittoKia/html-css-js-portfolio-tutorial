@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 app.get('/run-goodbye', (req, res) => {
   const java = spawn('java', [
     '-cp', 'build/classes',
-    'myabbasikiamethodsassignment.AbbasiKiaMethodsAssignmentUI'
+    'myabbasikiamethodsassignment.Main'
   ]);
 
   let out = '', err = '';

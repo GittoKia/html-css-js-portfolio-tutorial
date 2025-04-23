@@ -1,31 +1,29 @@
-# Base image with JDK & Ant
-FROM node:18-slim
+# Use Node.js slim base so we can install JDK easily
+FROM node:18-bullseye-slim
 
-# Install JDK & Ant (no interactive prompts)
-ENV DEBIAN_FRONTEND=noninteractive
+# Install a JDK for javac/java
 RUN apt-get update \
- && apt-get install -y --no-install-recommends default-jdk ant fontconfig fonts-dejavu \
+ && apt-get install -y --no-install-recommends default-jdk \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# 1️⃣ Copy and compile the packaged Methods assignment via Ant
-COPY build.xml .
-COPY nbproject/ ./nbproject/
-COPY src/ ./src/
-RUN ant clean compile
+# 1) Copy and compile your Java sources
+#    (Assumes you’ve added src/myabbasikiamethodsassignment/Main.java alongside your UI class)
+COPY src ./src
+RUN mkdir -p build/classes \
+ && javac -d build/classes \
+      src/myabbasikiamethodsassignment/AbbasiKiaMethodsAssignmentUI.java \
+      src/myabbasikiamethodsassignment/Main.java
 
-# 2️⃣ Install Node deps and copy only the server
+# 2) Install your Node.js dependencies
 COPY package*.json ./
-RUN npm install --production
-COPY server.js ./
+RUN npm install
 
-# 3️⃣ (Optional) Copy public if you need a static frontend for testing
-COPY public/ ./public
+# 3) Copy the rest of your app (server.js + static files)
+COPY server.js .
+COPY public ./public
 
-# Force headless mode for any Swing code
-ENV JAVA_TOOL_OPTIONS="-Djava.awt.headless=true"
+# 4) Expose and run
 EXPOSE 10000
-
-# Start only your Node server
 CMD ["node", "server.js"]
