@@ -1,84 +1,72 @@
+// server.js
 const express = require('express');
+const path    = require('path');
 const { spawn } = require('child_process');
-const cors = require('cors');
+const cors    = require('cors');
 
 const app = express();
 app.use(cors());
 
-// Endpoint to run AbbasiKiaArraysAssignmentUI (or similar)
+// ─── 1. STATIC FILES ──────────────────────────────────────────────────────────
+// Serve everything in ./public at the root URL
+app.use(express.static(path.join(__dirname, 'public')));
+
+// ─── 2. JAVA ENDPOINTS ────────────────────────────────────────────────────────
 app.get('/run-java', (req, res) => {
-  // Spawn process using class from JavaClasses folder
-  const javaProcess = spawn('java', ['-cp', 'JavaClasses', 'AbbasiKiaArraysAssignmentUI']);
+  const javaProcess = spawn('java', [
+    '-cp', 'JavaClasses',
+    'AbbasiKiaArraysAssignmentUI'
+  ]);
 
-  let outputData = '';
-  let errorData = '';
+  let output = '', errors = '';
+  javaProcess.stdout.on('data', d => output += d.toString());
+  javaProcess.stderr.on('data', d => errors += d.toString());
 
-  javaProcess.stdout.on('data', (data) => {
-    outputData += data.toString();
-  });
-
-  javaProcess.stderr.on('data', (data) => {
-    errorData += data.toString();
-  });
-
-  javaProcess.on('close', (code) => {
-    if (code === 0) {
-      res.send(`<pre>${outputData}</pre>`);
-    } else {
-      res.status(500).send(`<pre>Error: ${errorData}</pre>`);
-    }
+  javaProcess.on('close', code => {
+    if (code === 0) res.send(`<pre>${output}</pre>`);
+    else           res.status(500).send(`<pre>Error:\n${errors}</pre>`);
   });
 });
 
-// NEW endpoint to run the Goodbye java file.
 app.get('/run-goodbye', (req, res) => {
-  // Make sure that the Goodbye.class is compiled into the JavaClasses folder.
-  const javaProcess = spawn('java', ['-cp', 'MethodsClasses', 'AbbasiKiaMethodsAssignmentUI']);
-  
+  const javaProcess = spawn('java', [
+    '-cp', 'MethodsClasses',
+    'AbbasiKiaMethodsAssignmentUI'
+  ]);
 
-  let outputData = '';
-  let errorData = '';
+  let output = '', errors = '';
+  javaProcess.stdout.on('data', d => output += d.toString());
+  javaProcess.stderr.on('data', d => errors += d.toString());
 
-  javaProcess.stdout.on('data', (data) => {
-    outputData += data.toString();
-  });
-
-  javaProcess.stderr.on('data', (data) => {
-    errorData += data.toString();
-  });
-
-  javaProcess.on('close', (code) => {
-    if (code === 0) {
-      res.send(`<pre>${outputData}</pre>`);
-    } else {
-      res.status(500).send(`<pre>Error: ${errorData}</pre>`);
-    }
+  javaProcess.on('close', code => {
+    if (code === 0) res.send(`<pre>${output}</pre>`);
+    else           res.status(500).send(`<pre>Error:\n${errors}</pre>`);
   });
 });
 
+// ─── 3. PYTHON ENDPOINT ───────────────────────────────────────────────────────
 app.get('/run-python', (req, res) => {
-  // Spawn the python process; use 'python' or 'python3' as needed
-  const pythonProcess = spawn('py', ['Minesweeper.py']);
+  // Use python3 on Linux containers
+  const pythonProcess = spawn('python3', ['Minesweeper.py']);
 
-  let outputData = '';
-  let errorData = '';
+  let output = '', errors = '';
+  pythonProcess.stdout.on('data', d => output += d.toString());
+  pythonProcess.stderr.on('data', d => errors += d.toString());
 
-  pythonProcess.stdout.on('data', (data) => {
-    outputData += data.toString();
-  });
-
-  pythonProcess.stderr.on('data', (data) => {
-    errorData += data.toString();
-  });
-
-  pythonProcess.on('close', (code) => {
-    if (code === 0) {
-      res.send(`<pre>${outputData}</pre>`);
-    } else {
-      res.status(500).send(`<pre>Error: ${errorData}</pre>`);
-    }
+  pythonProcess.on('close', code => {
+    if (code === 0) res.send(`<pre>${output}</pre>`);
+    else           res.status(500).send(`<pre>Error:\n${errors}</pre>`);
   });
 });
 
-const port = process.env.PORT || 3001;
-app.listen(port, () => console.log(`Running on ${port}`));
+// ─── 4. CATCH-ALL (optional) ─────────────────────────────────────────────────
+// If you want all unknown routes to return index.html (for a SPA):
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// });
+
+// ─── 5. START SERVER ─────────────────────────────────────────────────────────
+const port = process.env.PORT || 10000;
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+});
