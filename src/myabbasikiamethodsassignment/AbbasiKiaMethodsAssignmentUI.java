@@ -1,8 +1,8 @@
-package src;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+package myabbasikiamethodsassignment;
 
 /**
  *
@@ -11,7 +11,7 @@ package src;
 public class AbbasiKiaMethodsAssignmentUI extends javax.swing.JFrame {
 
     /**
-     * Creates new form AbbasiKiaMethodsAsignmentUI
+     * Creates new form AbbasiKiaMethodsAssignmentUI
      */
     /**
      * Rounds a given number to the nearest hundredth
