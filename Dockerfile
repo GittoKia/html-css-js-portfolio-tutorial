@@ -19,9 +19,9 @@ RUN ant clean compile
 
 # create a directory for your “JavaClasses” and compile into it
 RUN mkdir JavaClasses \
-    && javac -d JavaClasses \
-         src/AbbasiKiaArraysAssignmentUI.java \
-         MethodsClasses/*.java
+  && javac -d JavaClasses \
+       AbbasiKiaArraysAssignmentUI.java \
+       MethodsClasses/*.java
 # 3. Install Node deps
 COPY package*.json ./
 RUN npm install
