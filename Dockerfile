@@ -1,33 +1,30 @@
 FROM node:18-alpine
 
-# 1. Install JDK, Ant, and font support
+# 1. Install JDK + Ant + font support (use Alpine’s correct package names)
 RUN apk add --no-cache \
-    openjdk17-jdk \
+    openjdk17 \
     ant \
     fontconfig \
     ttf-dejavu
 
 WORKDIR /app
 
-# 2. Copy your NetBeans Ant project
+# 2. Compile your Java code (via Ant or javac)
 COPY build.xml ./
 COPY nbproject/ ./nbproject/
 COPY src/ ./src/
-# (and any 'lib/' folder or other resources your Ant build needs)
-
-# 3. Run Ant so your classes (or JAR) get built
 RUN ant clean compile
 
-# 4. Install Node deps
+# 3. Install Node dependencies
 COPY package*.json ./
 RUN npm install
 
-# 5. Copy the rest of your Node app
+# 4. Copy the rest of your Node app
 COPY server.js ./
 COPY public ./public
 
 EXPOSE 10000
 
-# 6. Make Java headless for Swing builds, then start Node
+# 5. Force Java into headless mode and start your Node server
 ENV JAVA_TOOL_OPTIONS="-Djava.awt.headless=true"
 CMD ["node", "server.js"]
