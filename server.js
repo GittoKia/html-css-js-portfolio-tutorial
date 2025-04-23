@@ -29,9 +29,9 @@ app.get('/run-java', (req, res) => {
 });
 
 app.get('/run-goodbye', (req, res) => {
-  const javaProcess = spawn('java', [
-    '-cp', 'MethodsClasses',
-    'AbbasiKiaMethodsAssignmentUI'
+  const javaProcess = spawn("java", [
+    "-cp", "build/classes:.",
+    "myabbasikia.AbbasiKiaArraysAssignmentUI"
   ]);
 
   let output = '', errors = '';
