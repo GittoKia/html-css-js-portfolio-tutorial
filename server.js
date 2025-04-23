@@ -2,7 +2,7 @@ const express = require('express');
 const { spawn } = require('child_process');
 const app = express();
 
-app.get('/run-methods', (req, res) => {
+app.get('/run-goodbye', (req, res) => {
   const java = spawn('java', [
     '-cp', 'build/classes',
     'myabbasikiamethodsassignment.AbbasiKiaMethodsAssignmentUI'
