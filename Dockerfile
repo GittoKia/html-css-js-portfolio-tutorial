@@ -1,11 +1,14 @@
 FROM node:18-alpine
 
-# 1. Install JDK so you have both javac and java available
-RUN apk add --no-cache openjdk17-jdk
+# 1. Install JDK + font support for Swing/Nimbus
+RUN apk add --no-cache \
+    openjdk17-jdk \
+    fontconfig \
+    ttf-dejavu
 
 WORKDIR /app
 
-# 2. Copy and compile your Java code
+# 2. Compile your Java code
 COPY MethodsClasses/ ./MethodsClasses/
 COPY AbbasiKiaMethodsAssignmentUI.java ./
 RUN javac -cp MethodsClasses AbbasiKiaMethodsAssignmentUI.java
@@ -14,11 +17,12 @@ RUN javac -cp MethodsClasses AbbasiKiaMethodsAssignmentUI.java
 COPY package*.json ./
 RUN npm install
 
-# 4. Copy the rest of your Node app
+# 4. Copy the rest of your app
 COPY server.js ./
 COPY public ./public
 
 EXPOSE 10000
 
-# 5. Launch your Node server (which can now spawn java processes)
+# 5. Force Java into headless mode and start your Node server
+ENV JAVA_TOOL_OPTIONS="-Djava.awt.headless=true"
 CMD ["node", "server.js"]
