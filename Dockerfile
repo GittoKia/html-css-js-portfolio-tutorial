@@ -1,32 +1,31 @@
-# 1. Base image with JDK & Ant
 FROM node:18-slim
 
+# 1. Install JDK (for javac) and cleanup
 RUN apt-get update \
- && apt-get install -y --no-install-recommends default-jdk ant fontconfig fonts-dejavu \
+ && apt-get install -y --no-install-recommends default-jdk fontconfig fonts-dejavu \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# 2. Build the packaged project via Ant
+# 2. Copy everything we need
 COPY build.xml ./
 COPY nbproject/ ./nbproject/
 COPY src/ ./src/
-RUN ant clean compile
-
-# 3. Bring in any root-level Java UIs
 COPY AbbasiKiaArraysAssignmentUI.java ./
 
-# 4. Compile EVERY .java (root + src) into JavaClasses/
-RUN mkdir JavaClasses \
- && find . -type f -name "*.java" > all_sources.txt \
- && javac -d JavaClasses @all_sources.txt
+# 3. Compile every .java (root + src) into build/classes/
+RUN mkdir -p build/classes \
+ && find src -type f -name "*.java" > sources.txt \
+ && echo "AbbasiKiaArraysAssignmentUI.java" >> sources.txt \
+ && javac -d build/classes @sources.txt
 
-# 5. Node/Express setup
+# 4. Finish Node setup
 COPY package*.json ./
 RUN npm install
 COPY server.js ./
 COPY public/ ./public
 
+# 5. Headless mode & start
 ENV JAVA_TOOL_OPTIONS="-Djava.awt.headless=true"
 EXPOSE 10000
 CMD ["node", "server.js"]
