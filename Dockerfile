@@ -17,7 +17,8 @@ RUN npm install
 COPY . .
 
 # 6. Compile all Java sources into a folder
-RUN mkdir -p JavaClasses && javac -d JavaClasses *.java
+RUN mkdir -p JavaClasses && \
+    javac -encoding UTF-8 -d JavaClasses *.java
 
 # 7. Expose the port your server listens on
 EXPOSE 3001
