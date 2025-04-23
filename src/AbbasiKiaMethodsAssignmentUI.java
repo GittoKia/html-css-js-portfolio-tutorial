@@ -11,7 +11,7 @@ package src;
 public class AbbasiKiaMethodsAssignmentUI extends javax.swing.JFrame {
 
     /**
-     * Creates new form AbbasiKiaMethodsAssignmentUI
+     * Creates new form AbbasiKiaMethodsAsignmentUI
      */
     /**
      * Rounds a given number to the nearest hundredth
