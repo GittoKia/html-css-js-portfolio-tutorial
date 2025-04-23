@@ -1,27 +1,31 @@
+# Base image with JDK & Ant
 FROM node:18-slim
 
-# 1) Install JDK (for javac) and fonts for Swing headless mode
+# Install JDK & Ant (no interactive prompts)
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
- && apt-get install -y --no-install-recommends default-jdk fontconfig fonts-dejavu \
+ && apt-get install -y --no-install-recommends default-jdk ant fontconfig fonts-dejavu \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# 2) Copy in *everything* from your project
-#    (this includes src/, your root-level .java, server.js, package files, public/, etc.)
-COPY . .
+# 1️⃣ Copy and compile the packaged Methods assignment via Ant
+COPY build.xml .
+COPY nbproject/ ./nbproject/
+COPY src/ ./src/
+RUN ant clean compile
 
-# 3) Compile all Java sources into JavaClasses/
-RUN mkdir -p JavaClasses \
- && find src -name "*.java" > sources.txt \
- && echo "AbbasiKiaArraysAssignmentUI.java" >> sources.txt \
- && javac -d JavaClasses @sources.txt
+# 2️⃣ Install Node deps and copy only the server
+COPY package*.json ./
+RUN npm install --production
+COPY server.js ./
 
-# 4) Install Node dependencies and copy the rest
-RUN npm install
-# (server.js and public/ were already copied by the `COPY . .` above)
+# 3️⃣ (Optional) Copy public if you need a static frontend for testing
+COPY public/ ./public
 
-# 5) Launch in headless mode
+# Force headless mode for any Swing code
 ENV JAVA_TOOL_OPTIONS="-Djava.awt.headless=true"
 EXPOSE 10000
+
+# Start only your Node server
 CMD ["node", "server.js"]
