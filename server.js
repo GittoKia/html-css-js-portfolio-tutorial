@@ -80,7 +80,5 @@ app.get('/run-python', (req, res) => {
   });
 });
 
-const port = 3001;
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+const port = process.env.PORT || 3001;
+app.listen(port, () => console.log(`Running on ${port}`));

@@ -2,6 +2,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "git": "^0.1.5",
     "sass": "^1.86.2"
   },
   "devDependencies": {
