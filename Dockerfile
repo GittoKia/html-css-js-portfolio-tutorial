@@ -1,28 +1,33 @@
 FROM node:18-alpine
 
-# 1. Install JDK + font support for Swing/Nimbus
+# 1. Install JDK, Ant, and font support
 RUN apk add --no-cache \
     openjdk17-jdk \
+    ant \
     fontconfig \
     ttf-dejavu
 
 WORKDIR /app
 
-# 2. Compile your Java code
-COPY MethodsClasses/ ./MethodsClasses/
-COPY AbbasiKiaMethodsAssignmentUI.java ./
-RUN javac -cp MethodsClasses AbbasiKiaMethodsAssignmentUI.java
+# 2. Copy your NetBeans Ant project
+COPY build.xml ./
+COPY nbproject/ ./nbproject/
+COPY src/ ./src/
+# (and any 'lib/' folder or other resources your Ant build needs)
 
-# 3. Install Node dependencies
+# 3. Run Ant so your classes (or JAR) get built
+RUN ant clean compile
+
+# 4. Install Node deps
 COPY package*.json ./
 RUN npm install
 
-# 4. Copy the rest of your app
+# 5. Copy the rest of your Node app
 COPY server.js ./
 COPY public ./public
 
 EXPOSE 10000
 
-# 5. Force Java into headless mode and start your Node server
+# 6. Make Java headless for Swing builds, then start Node
 ENV JAVA_TOOL_OPTIONS="-Djava.awt.headless=true"
 CMD ["node", "server.js"]
